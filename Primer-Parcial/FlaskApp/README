@@ -1,2 +1,5 @@
 # Requeriments
- In order to use this Flask app, I wrote down the requeriments in the ==requeriments.txt== so you can use `pip install -r requeriments.txt`
+ In order to use this Flask app, I wrote down the requeriments in the ==  requeriments.txt == so you can use:
+```
+pip install -r requeriments.txt
+```
