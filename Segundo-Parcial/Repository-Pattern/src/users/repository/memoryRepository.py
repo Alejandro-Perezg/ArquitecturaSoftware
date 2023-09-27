@@ -15,3 +15,9 @@ class CourseRepository(AbstractRepository):
     def get(self, course_id) -> course_model.Course:
         course = next((course for course in self.courses if course.id == int(course_id)), None)
         return course
+    
+    
+    #retrieve course name
+    # def get(self, course_name) -> course_model.Course:
+    #     course = next((course for course in self.courses if course.course == int(course_name)), None)
+    #     return course

@@ -8,6 +8,7 @@ blueprint = Blueprint('course_controller',__name__)
 repository = CourseRepository()
 
 
+
 #Endpoints
 @blueprint.route("/courses", methods = ["POST"])
 def insert_course():
@@ -19,8 +20,13 @@ def insert_course():
         description = course_data["description"]
     )
 
-    # if course.course in repository:
-    #     return jsonify({"message": "Course already exists!"}, 400)
+ 
+    #JSON list
+    course_list = repository.courses
+    
+    for element in course_list:
+        if element.course == course.course and element.id != course.id:
+            return jsonify({"message": "Course already exist!"}, 400)
     
     repository.add(course)
     return jsonify(course)
@@ -33,3 +39,10 @@ def get_course(course_id):
         return jsonify({"message": "Course does not exist"}, 400)
     
     return jsonify(course)
+
+
+#  POST example
+# {
+#     "course":"enchant",
+#     "description":"most important skill on skyrim"
+# }
