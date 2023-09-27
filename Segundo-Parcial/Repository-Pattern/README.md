@@ -1,5 +1,6 @@
 # Repository Pattern
-Base project example demonstrating layer architecture.
+
+Project to demonstrate Repository Patter
 
 
 # Instructions for Unix-like systems
@@ -7,6 +8,10 @@ Base project example demonstrating layer architecture.
  ```
     source env/bin/activate
     python src/app.py
+ ```
+ **Requeriments:**
+ ```
+    pip instal -r requeriments.txt
  ```
 
 # Usage
