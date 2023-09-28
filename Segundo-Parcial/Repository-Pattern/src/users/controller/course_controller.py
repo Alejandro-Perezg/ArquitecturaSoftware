@@ -26,7 +26,7 @@ def insert_course():
     
     for element in course_list:
         if element.course == course.course and element.id != course.id:
-            return jsonify({"message": "Course already exist!"}, 400)
+            return jsonify({"message": "Course already exist!"}), 400
     
     repository.add(course)
     return jsonify(course)
@@ -36,7 +36,7 @@ def get_course(course_id):
     course = repository.get(course_id)
 
     if course is None:
-        return jsonify({"message": "Course does not exist"}, 400)
+        return jsonify({"message": "Course does not exist"}), 400
     
     return jsonify(course)
 
