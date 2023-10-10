@@ -1,6 +1,5 @@
 from flask import Blueprint, jsonify, request
 from users.model.course_model import Course
-from users.repository.memoryRepository import CourseRepository
 
 
 

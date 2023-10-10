@@ -4,7 +4,7 @@ import repository
 app = Flask(__name__)
 repository = repository.data
 
-@app.route('/item', methods = ['GET'])
+@app.route('/', methods = ['GET'])
 def getItems():
     return render_template('controller.html', myList = repository )
 
@@ -34,9 +34,9 @@ def postItem():
 def deletItem():
     deletedItem = request.form['toDelete']
     deletedItem =  str(deletedItem)
-    for items in repository:
-        if items['SKU'] == deletedItem:
-            del items
+
+    repository = [d for d in lista_diccionarios if d.get('SKU') != deletedItem]
+
 
     return render_template('controller.html', myList = repository )
 
