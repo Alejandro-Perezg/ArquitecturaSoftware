@@ -1,4 +1,6 @@
 **ATENCION**
+
+
 Para poder ejecutar el siguiente proyecyto en sistemas operativos basados en Debian se requeiren las siguientes dependencias:
 - psycopg2==2.9.9
 - psycopg2-binary==2.9.9
@@ -31,4 +33,13 @@ Tambien se requieren instalar los siguientes componenetes:
         Debido a que la arquitectura de microservicios se basa en la idea de que los fallos son inevitables. Cada microservicio debe ser diseñado para ser resiliente y tolerante a fallos 
         por lo que el proyecto es mas facil de mantener y corregir errores debido a su modularidad
 2. Escalabilidad
-         Esto permite una gestión eficiente de los recursos y una escalabilidad mas especifica, ya que solo los servicios que experimentan una carga adicional necesitan escalar, en lugar de escalar toda la aplicación monolítica
+        Esto permite una gestión eficiente de los recursos y una escalabilidad mas especifica, ya que solo los servicios que experimentan una carga adicional necesitan escalar, en lugar de escalar toda la aplicación monolítica
+
+3. Reusabilidad
+        La implementacion de la base de datos y los modulos que se utilizan permiten al proyecto una facil reutilizacion de componentes para el mismo proyexto o para uno nuevo
+
+4. Rendimiento
+        Las caracterizticas del proyecto permiten que los componentes que interactuan entre si puedan seguir funcionando a pesar que se modifiquen las dependencias
+
+5. Usabilidad 
+        La aplicacion es adecuada para su utilizacion en caso que se vaya a cambiar
