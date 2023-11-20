@@ -1,13 +1,13 @@
-import json
 import psycopg2
+from flask import request, jsonify
+
 from repository.item_repository import ItemRepository
-from flask import request
+
 
 connection = psycopg2.connect("host=localhost dbname=final user=jvnko password=my_password")
 item_repository = ItemRepository(connection)
 
 class ItemController:
-
 
     def __init__(self, item_repository):
         self.item_repository = item_repository
@@ -22,22 +22,20 @@ class ItemController:
                 "description": item["description"],
                 "price": str(item["price"]),
                 "quantity": item["quantity"],
-                "expdate": str(item["expdatee"])
-                }
+                "expdate": str(item["expdate"])
+            }
             json_items.append(json_item)
 
-        return json.dumps(json_items)
+        return jsonify(json_items)
 
-    
     def add_item(self):
-        item = json.loads(request.data)
-        self.item_repository.add_item(item)
-        return 'Adding item'
-
+        item_data = request.get_json()
+        self.item_repository.add_item(item_data)
+        return 'Item added successfully'
 
     def delete_item(self, sku):
         self.item_repository.delete_item(sku)
-        return 'Item deleted '
+        return 'Item deleted successfully'
 
     def get_item(self, sku):
         item = self.item_repository.get_item(sku)
@@ -50,27 +48,28 @@ class ItemController:
                 "quantity": item["quantity"],
                 "expdate": str(item["expdate"])
             }
-            return json.dumps(json_item)
+            return jsonify(json_item)
         else:
             return 'Item not found'
 
     def convert_currency(self, sku, currency):
         item = self.item_repository.get_item(sku)
         if item:
-            exchange_rate_url = f"http://api.exchangeratesapi.io/v1/latest?access_key=6aa9ad73dc0b72c4d4fb809216daca2f&symbols={currency}"
+            exchange_rate_url = f"http://api.exchangeratesapi.io/v1/latest?access_key=YOUR_ACCESS_KEY&symbols={currency}"
             response = request.get(exchange_rate_url)
-            exchange_rate_data = json.loads(response.content)
+            exchange_rate_data = response.json()
 
-            exchange_rate = exchange_rate_data["rates"][currency]
-            converted_price = item["Price"] * exchange_rate
+            exchange_rate = exchange_rate_data["rates"].get(currency, 1.0)
+            converted_price = item["price"] * exchange_rate
 
-            return json.dumps({
+            json_item = {
                 "sku": item["sku"],
                 "name": item["name"],
                 "description": item["description"],
-                "price": str(price),
+                "price": str(converted_price),
                 "quantity": item["quantity"],
                 "expdate": str(item["expdate"])
-            })
+            }
+            return jsonify(json_item)
         else:
-            return 'Non existence item' 
+            return 'Item not found'
