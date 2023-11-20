@@ -18,11 +18,11 @@ def create_app():
     @app.route('/item/<sku>/convert', methods=['GET'])
     def convert_currency(sku):
         currency = request.args.get('currency')
-        return item_controller.convert_currency(sku, currency)
+        return item_controller.changeCurrency(sku, currency)
 
     @app.route('/item', methods=['GET'])
     def get_items():
-        return item_controller.get_items()
+        return item_controller.getItems()
 
     @app.route('/item', methods=['POST'])
     def add_item():
@@ -31,7 +31,7 @@ def create_app():
 
     @app.route('/item/<sku>', methods=['DELETE'])
     def delete_item(sku):
-        item_controller.delete_item(sku)
+        item_controller.deleteItem(sku)
         return redirect('/')
 
     @app.route('/item/add', methods=['GET'])

@@ -12,6 +12,12 @@ class ItemRepository:
 
     def get_items(self):
         return self.load_items()
+    
+    def get_item(self, sku):
+        query = "SELECT * FROM my_schema.items WHERE sku=%s"
+        values = (sku,)
+        row = self._execute_query(query, values, fetchone=True)
+        return self._row_to_dict(row) if row else None
 
     def add_item(self, item):
         query = "INSERT INTO my_schema.items (sku, name, description, price, quantity, expdate) VALUES (%s, %s, %s, %s, %s, %s)"
@@ -27,11 +33,7 @@ class ItemRepository:
         self.connection.commit()
         return "Item removed"
 
-    def get_item(self, sku):
-        query = "SELECT * FROM my_schema.items WHERE sku=%s"
-        values = (sku,)
-        row = self._execute_query(query, values, fetchone=True)
-        return self._row_to_dict(row) if row else None
+
 
     def _execute_query(self, query, values=None, fetchone=False):
         with self.connection.cursor() as cursor:
